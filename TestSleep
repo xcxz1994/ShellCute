@@ -1,1 +1,20 @@
 #在脚本中生成延时
+
+#!/bin/bash
+
+echo -n Count:
+tput sc             #存储光标位置
+
+count=0;
+while true;
+do
+ if [ $count -lt 40 ];
+ then
+   let count++;
+   sleep 1;                    #每次循环中，通过恢复之前存储的光标位置，在终端中打印出新的count值
+   tput rc;                    #恢复光标位置的命令
+   tput ed;                    #清除从当前光标位置到行尾之间的所有内容，使得旧的count值可以被清除并写入新值
+   echo -n $count;
+ else exit 0;
+ fi
+done
