@@ -1,0 +1,25 @@
+#自定义格式显示调试信息：
+#!/bin/bash
+#shebang的妙用：#!/bin/bash -xv  这样可以直接启动调试功能
+function DEBUG()
+{
+   [ "$_DEBUG" == "on" ] && $@ || :
+}
+for i in {1..10}
+do
+  DEBUG echo $i
+done
+
+#使用set -x和set +x，对脚本进行部分调试：
+#!/bin/bash
+
+for i in {1..6};
+do
+ set -x    #在执行时显示参数和命令
+ echo $i
+ set +x    #禁止调试
+done
+
+echo "脚本执行完毕"
+#set -v：当命令进行读取时显示输入
+#set +v：禁止打印输入
