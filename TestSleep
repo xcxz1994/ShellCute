@@ -5,7 +5,7 @@
 echo -n Count:
 tput sc             #存储光标位置
 
-count=0;
+count=0;            #变量count初始化为0,随后每次循环一次增加1
 while true;
 do
  if [ $count -lt 40 ];
