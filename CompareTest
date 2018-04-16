@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#[[ $str1 = $str2 ]]:当str1等于str2时。返回真，也就是说str1与str2包含的文本是一模一样的
+
+#[[ $str1 != $str2 ]]:当str1与str2不相等时，返回真
+
+#我们还可以检查字符串的字母序情况
+
+#[[ $str1 > $str2 ]]:当str1的字母序比str2大时，返回真
+
+#[[ $str1 < $str2 ]]:当str1的字母序比str2小时，返回真
+
+#[[ -z $str1 ]]  :如果str1包含的是空字符串，则返回真
+
+#[[ -n $str1 ]]  :如果str1包含的是非空字符串，则返回真
+
+str1="Not empty "
+
+str2=""
+if [[ -n $str1 ]] && [[ -z $str2 ]]
+then
+ echo str1 is nonempty  and str2 is empty string.
