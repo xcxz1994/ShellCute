@@ -1,0 +1,34 @@
+#!/bin/bash
+
+data="name,sex,rollno,location"
+
+#IFS的默认值为空白字符（换行符，制表符或空格）
+oldIFS=$IFS
+#IFS被设置为逗号时，shell将被视为一个定界符，因此变量$item在每次迭代中读取由逗号分隔的字>串作为变量值
+
+IFS=,
+
+for item in $data;
+do
+  echo Item:$item
+done
+
+IFS=$oldIFS
+
+line="root:x:0:0:root:/root:/bin/bash"
+
+oldIFS=$IFS;
+
+IFS=":"
+count=0
+
+for item in $line;
+do
+ [ $count -eq 0 ] && user=$item;
+ [ $count -eq 6 ] && shell=$item;
+ let count++
+done
+
+IFS=$oldIFS
+
+echo $user\'s shell is $shell
