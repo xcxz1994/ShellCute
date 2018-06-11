@@ -15,3 +15,4 @@ find . -name "*.txt" -print
 #\(以及\)用於將-name "*.txt" -o -name "*.pdf" 視爲一個整體
 find . \( -name "*.txt" -o  -name "*.pdf" \) -print
 
+#選項-path 的參數可以使用通配符來匹配文件路徑 -path將文件路勁作爲一個整體進行匹配
