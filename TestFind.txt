@@ -13,6 +13,104 @@ find . -name "*.txt" -print
 #  find命令有一個選項-iname可以用來忽略字母大小寫
 
 #\(以及\)用於將-name "*.txt" -o -name "*.pdf" 視爲一個整體
+
 find . \( -name "*.txt" -o  -name "*.pdf" \) -print
 
 #選項-path 的參數可以使用通配符來匹配文件路徑 -path將文件路勁作爲一個整體進行匹配
+
+find /home/chunyu -path "*/PycharmProjects/*" -print
+
+#正則表達式是通配符的高級形式，它可以指定文本模式，正則表達式解析郵箱地址，將郵箱地址一般化，[a-z0-9]+@[a-z0-9]+.[a-z0-9]+
+
+#符號+，指明在它之前的字符類中的字符可以出現一次或多次
+
+find . -regex ".*\(\.py\|\.sh\)$"
+
+#上述命令用於匹配.py和.sh文件
+
+#find命令也可以用！否定參數的含義，下述命令能夠匹配所有不以.txt結尾的文件名
+
+find . ! -name "*.txt" -print
+
+#find命令在使用時會遍歷所有的子目錄。我們可以採用深度選項-maxdepth和-mindepth來限制find命令遍歷的目錄深度
+
+find . -maxdepth 1 -name "*.txt" -print
+
+#上述命令，列出當前目錄下的所有文件以txt結尾的文件，即使有子目錄也不會被打印或遍歷，與之類似，-maxdepth 2 最多向下遍歷兩級目錄
+
+#-mindepth 類似與-maxdepth 不過它們設置的是find開始遍歷的最小深度
+
+
+#根據文件類型進行搜索，UNIX類系統將一切視爲文件，文件具有不同的類型， -type可以對文件進行過濾
+
+普通文件     f
+符號鏈接     l
+目錄        d
+字符設備     c
+塊設備      b
+套接字      s
+FIFO       p
+
+find . -type d -print      #只列出所有的目錄
+
+#根據文件時間進行搜索，UNix/Linux文件系統中，每一個文件都有三種時間戳
+
+訪問時間（-atime）：用戶最近一次訪問文件的時間
+修改時間（-mtime）：文件內容最後一次被修改的時間
+變化時間（-ctime）：文件元數據（例如權限或所有權）最後一次改變的時間
+
+
+#在Unix中沒有所謂的“創建時間”的概念
+
+find . -type f -atime -7 -print
+
+#上述命令，打印出在最近7天內被訪問過的所有文件， -atime，-mtime，-ctime的單位是天，符號- 表示小於  符號+ ，表示大於
+
+#find也有一些以分鐘作爲單位的參數
+
+-amin
+-mmin
+-cmin
+
+
+#find另外一個比較漂亮的特性是參數-newer參數  使用-newer，我們可以指定一個用於比較時間戳的參考文件，然後找出比參考文件更新的（更近的修改時間）所有文件
+
+find . -type f -newer TestFind.txt -print
+
+#上述命令，用於找出比TestFind.txt 修改時間更近的所有文件
+
+
+#基於文件大小的搜索
+
+find . -type f -size +2k  #搜索大於2k的文件
+
+#其他的文件大小單元
+
+b —————塊（512字節）
+c —————字節
+w —————字（2字節）
+k —————1024字節
+M —————1024k字節
+G —————1024M字節
+
+
+#刪除匹配的文件，-delete可以用來刪除find查找到的匹配文件
+
+find . -type f -name "*.swp" -delete
+
+
+#基於文件權限和所有權的匹配
+
+find . -type f -perm 644 -print  #打印出權限爲644的文件  -perm指明find應該只匹配具有特定權限值的文件
+
+
+#也可以根據文件的所有權進行搜索，用選項 -user USER就能夠找出由某個特定用戶所擁有的文件
+
+find . -type f -user chunyu -print
+
+
+
+
+
+
+
